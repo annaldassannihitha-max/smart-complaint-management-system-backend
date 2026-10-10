@@ -1,8 +1,0 @@
-com\smartcomplaint\SmartComplaintApplication.class
-com\smartcomplaint\config\CorsConfig.class
-com\smartcomplaint\model\ComplaintStatus.class
-com\smartcomplaint\controller\ComplaintController.class
-com\smartcomplaint\model\Complaint.class
-com\smartcomplaint\controller\HealthController.class
-com\smartcomplaint\repository\ComplaintRepository.class
-com\smartcomplaint\controller\AuthController.class
