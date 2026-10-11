@@ -1,40 +1,52 @@
 package com.smartcomplaint.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
+    public CorsFilter corsFilter() {
 
-        return new WebMvcConfigurer() {
+        CorsConfiguration config = new CorsConfiguration();
 
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
+        // Exact frontend URLs
+        config.setAllowedOrigins(List.of(
+            "https://smart-complaint-management-system-f-delta.vercel.app",
+            "https://smart-complaint-management-system-frontend-65kcreiml.vercel.app",
+            "http://localhost:5173"
+        ));
 
-                registry
-                    .addMapping("/**")
-                    .allowedOriginPatterns(
-                        "https://smart-complaint-management-system-frontend-65kcreiml.vercel.app",
-                        "https://*.vercel.app",
-                        "http://localhost:5173"
-                    )
-                    .allowedMethods(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "PATCH",
-                        "DELETE",
-                        "OPTIONS"
-                    )
-                    .allowedHeaders("*")
-                    .allowCredentials(false)
-                    .maxAge(3600);
-            }
-        };
+        // Allowed HTTP methods
+        config.setAllowedMethods(List.of(
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+            "OPTIONS"
+        ));
+
+        // Allow all request headers
+        config.setAllowedHeaders(List.of("*"));
+
+        // We are not using cookies for authentication
+        config.setAllowCredentials(false);
+
+        // Cache preflight response
+        config.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
     }
 }
