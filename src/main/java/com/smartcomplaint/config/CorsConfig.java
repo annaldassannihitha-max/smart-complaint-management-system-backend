@@ -19,7 +19,6 @@ public class CorsConfig {
         // Exact frontend URLs
         config.setAllowedOrigins(List.of(
             "https://smart-complaint-management-system-f-delta.vercel.app",
-            "https://smart-complaint-management-system-frontend-65kcreiml.vercel.app",
             "http://localhost:5173"
         ));
 
